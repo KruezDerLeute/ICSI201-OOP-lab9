@@ -62,12 +62,12 @@ class RequiredCourse : public Course {
       return newCourse;
     }
 
-    void print() {
-      cout << "Title: " << this->title << endl;
-      cout << "Code: " << this->code << endl;
-      cout << "Credit: " << this->credit << endl;
-      cout << "Grade: " << this->grade << endl;
-    }
+  void print() {
+    cout << "Title   : " << this->title << endl;
+    cout << "Code    : " << this->code << endl;
+    cout << "Credit  : " << this->credit << endl;
+    cout << "Grade   : " << this->grade << endl;
+  }
 };
 
 
@@ -88,10 +88,10 @@ public:
   }
 
   void print() {
-    cout << "Title: " << this->title << endl;
-    cout << "Code: " << this->code << endl;
-    cout << "Credit: " << this->credit << endl;
-    cout << "Grade: " << this->grade << endl;
+    cout << "Title   : " << this->title << endl;
+    cout << "Code    : " << this->code << endl;
+    cout << "Credit  : " << this->credit << endl;
+    cout << "Grade   : " << this->grade << endl;
   }
 
   Course *createCourse(string title = "", string code = "", int credit = 0, float grade = 0) {
@@ -117,10 +117,10 @@ class ElectiveCourse : public Course{
     }
 
   void print() {
-    cout << "Title: " << this->title << endl;
-    cout << "Code: " << this->code << endl;
-    cout << "Credit: " << this->credit << endl;
-    cout << "Grade: " << this->grade << endl;
+    cout << "Title   : " << this->title << endl;
+    cout << "Code    : " << this->code << endl;
+    cout << "Credit  : " << this->credit << endl;
+    cout << "Grade   : " << this->grade << endl;
   }
 
   Course * createCourse (string title = "", string code = "", int credit = 0, float grade = 0) {

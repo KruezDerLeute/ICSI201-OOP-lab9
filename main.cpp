@@ -35,6 +35,15 @@ public:
     courses[5] = new FundCourse("PHIL101", "Philisophy", 3, 0);
   }
 
+  int getCurrentCourseLenght() {
+    int sum = 0;
+    for (int i = 0; i < maxCourseSize; i++) {
+      if (courses[i] != nullptr) 
+        sum ++;
+    }
+    return sum;
+  }
+
   void showStudentList()
   {
     system("clear");
@@ -247,118 +256,132 @@ public:
       nmajor = tmp;
 
     students[idx] = new Student(
-        nfname,
-        nlname,
-        age,
-        gender,
-        nid,
-        nmajor);
+      nfname,
+      nlname,
+      age,
+      gender,
+      nid,
+      nmajor
+    );
 
     cout << "saved changes.\n";
     cin.ignore();
     system("bash -c 'read -n1 -s -r -p \"Press any key to continue...\"'");
   }
 
-  // void edit(Course **courses, int n)
-  // {
-  //   if (n == 0)
-  //   {
-  //     cout << "No courses\n";
-  //     system("bash -c 'read -n1 -s -r -p \"Press any key to continue...\"'");
-  //     cout << "\n";
-  //     return;
-  //   }
+  void edit(Course **courses, int n)
+  {
+    if (n == 0)
+    {
+      cout << "No courses\n";
+      system("bash -c 'read -n1 -s -r -p \"Press any key to continue...\"'");
+      cout << "\n";
+      return;
+    }
 
-  //   cout << "Enter course index to edit: ";
-  //   cin.ignore();
-  //   string str;
-  //   getline(cin, str);
-  //   int idx = 0;
-  //   try
-  //   {
-  //     idx = stoi(str);
-  //   }
-  //   catch (...)
-  //   {
-  //     cout << "Invalid index input.\n";
-  //     system("bash -c 'read -n1 -s -r -p \"Press any key to continue...\"'");
-  //     cout << "\n";
-  //     return;
-  //   }
+    cout << "Enter course index to edit: ";
+    cin.ignore();
+    string str;
+    getline(cin, str);
+    int idx = 0;
+    try
+    {
+      idx = stoi(str);
+    }
+    catch (...)
+    {
+      cout << "Invalid index input.\n";
+      system("bash -c 'read -n1 -s -r -p \"Press any key to continue...\"'");
+      cout << "\n";
+      return;
+    }
 
-  //   if (idx < 0 || idx >= n || courses[idx] == nullptr)
-  //   {
-  //     cout << "Index out of range or no course at this index.\n";
-  //     system("bash -c 'read -n1 -s -r -p \"Press any key to continue...\"'");
-  //     cout << "\n";
-  //     return;
-  //   }
+    if (idx < 0 || idx >= n || courses[idx] == nullptr)
+    {
+      cout << "Index out of range or no course at this index.\n";
+      system("bash -c 'read -n1 -s -r -p \"Press any key to continue...\"'");
+      cout << "\n";
+      return;
+    }
 
-  //   system("clear");
-  //   cout << "Old data:\n";
-  //   courses[idx]->print();
+    system("clear");
+    cout << "Old data:\n";
+    courses[idx]->print();
 
-  //   // Get old values for defaults
-  //   string oldTitle = courses[idx]->get_title();
-  //   string oldCode = courses[idx]->get_code();
-  //   int oldCredit = courses[idx]->get_credit();
-  //   float oldGrade = courses[idx]->get_grade();
+    // Get old values for defaults
+    string oldTitle = courses[idx]->get_title();
+    string oldCode = courses[idx]->get_code();
+    int oldCredit = courses[idx]->get_credit();
+    float oldGrade = courses[idx]->get_grade();
 
-  //   cout << "\nEnter new values (leave blank to keep old value):\n";
+    cout << "\nEnter new values (leave blank to keep old value):\n";
 
-  //   cout << "Title [" << oldTitle << "]: ";
-  //   string newTitle;
-  //   getline(cin, newTitle);
-  //   if (newTitle.empty())
-  //     newTitle = oldTitle;
+    cout << "Title [" << oldTitle << "]: ";
+    string newTitle;
+    getline(cin, newTitle);
+    if (newTitle.empty())
+      newTitle = oldTitle;
 
-  //   cout << "Code [" << oldCode << "]: ";
-  //   string newCode;
-  //   getline(cin, newCode);
-  //   if (newCode.empty())
-  //     newCode = oldCode;
+    cout << "Code [" << oldCode << "]: ";
+    string newCode;
+    getline(cin, newCode);
+    if (newCode.empty())
+      newCode = oldCode;
 
-  //   cout << "Credit [" << oldCredit << "]: ";
-  //   string sCredit;
-  //   getline(cin, sCredit);
-  //   int newCredit = oldCredit;
-  //   if (!sCredit.empty())
-  //   {
-  //     try
-  //     {
-  //       newCredit = stoi(sCredit);
-  //     }
-  //     catch (...)
-  //     {
-  //       cout << "Invalid credit input, keeping old value (" << oldCredit << ").\n";
-  //       newCredit = oldCredit;
-  //     }
-  //   }
+    cout << "Credit [" << oldCredit << "]: ";
+    string sCredit;
+    getline(cin, sCredit);
+    int newCredit = oldCredit;
+    if (!sCredit.empty())
+    {
+      try
+      {
+        newCredit = stoi(sCredit);
+      }
+      catch (...)
+      {
+        cout << "Invalid credit input, keeping old value (" << oldCredit << ").\n";
+        newCredit = oldCredit;
+      }
+    }
 
-  //   cout << "Grade (GPA) [" << oldGrade << "]: ";
-  //   string sGrade;
-  //   getline(cin, sGrade);
-  //   float newGrade = oldGrade;
-  //   if (!sGrade.empty())
-  //   {
-  //     try
-  //     {
-  //       newGrade = stof(sGrade);
-  //     }
-  //     catch (...)
-  //     {
-  //       cout << "Invalid grade input, keeping old value (" << oldGrade << ").\n";
-  //       newGrade = oldGrade;
-  //     }
-  //   }
+    cout << "Grade (GPA) [" << oldGrade << "]: ";
+    string sGrade;
+    getline(cin, sGrade);
+    float newGrade = oldGrade;
+    if (!sGrade.empty())
+    {
+      try
+      {
+        newGrade = stof(sGrade);
+      }
+      catch (...)
+      {
+        cout << "Invalid grade input, keeping old value (" << oldGrade << ").\n";
+        newGrade = oldGrade;
+      }
+    }
 
-  //   delete courses[idx];
-  //   courses[idx] = new Course(newTitle, newCode, newCredit, newGrade);
+    // Determine the type of the original course and create a new one of the same type
+    if (dynamic_cast<ElectiveCourse*>(courses[idx]) != nullptr) {
+      delete courses[idx];
+      courses[idx] = new ElectiveCourse(newTitle, newCode, newCredit, newGrade);
+    }
 
-  //   cout << "Saved changes.\n";
-  //   system("bash -c 'read -n1 -s -r -p \"Press any key to continue...\"'");
-  //   cout << "\n";
-  // }
+    if (dynamic_cast<RequiredCourse*>(courses[idx]) != nullptr) {
+      delete courses[idx];
+      courses[idx] = new RequiredCourse(newTitle, newCode, newCredit, newGrade);
+    }
+
+    if (dynamic_cast<FundCourse*>(courses[idx]) != nullptr) {
+      delete courses[idx];
+      courses[idx] = new FundCourse(newTitle, newCode, newCredit, newGrade);
+    }
+
+    cout << "Saved changes.\n";
+    system("bash -c 'read -n1 -s -r -p \"Press any key to continue...\"'");
+    cout << "\n";
+  }
 
   void listCourses()
   {
@@ -381,12 +404,14 @@ public:
       }
     }
 
-    cout << "Choose student to see their courses: ";
+    cout << "\nChoose student to see their courses: ";
     cin.ignore();
     string input;
     getline(cin, input);
     int idx = stoi(input);
     Course **s_courses = students[idx]->get_courses();
+
+    system("clear");
 
     if (s_courses[0] == nullptr)
     {
@@ -397,28 +422,36 @@ public:
 
     for (int i = 0; i < students[idx]->get_courseSize(); i++)
     {
-      cout << "title: ";
-      cout << s_courses[i]->get_title() << endl;
-      cout << "code: ";
-      cout << s_courses[i]->get_code() << endl;
-      cout << "credit: ";
-      cout << s_courses[i]->get_credit() << endl;
-      cout << "grade: ";
-      cout << s_courses[i]->get_grade() << endl;
+      if (s_courses[i] != nullptr) {
+        cout << i << ".-------------" << endl;
+        cout << "title: ";
+        cout << s_courses[i]->get_title() << endl;
+        cout << "code: ";
+        cout << s_courses[i]->get_code() << endl;
+        cout << "credit: ";
+        cout << s_courses[i]->get_credit() << endl;
+        cout << "grade: ";
+        cout << s_courses[i]->get_grade() << endl;
+      } else {
+        break;
+      }
     }
 
-    getline(cin, input);
+    cout << "\nEdit course: 0" << endl;
+    cout << "Go back    : 1" << endl;
+    system("bash -c 'read -n1 -s -r -p \"Choose an option from above: \"'");
     int op = stoi(input);
-
+    
     switch (op)
     {
-    case 1:
-      // edit(s_courses, students[idx]->get_courseSize());
+    case 0:
+      edit(students[idx]->get_courses(), students[idx]->get_courseSize());
       break;
-
+    
     default:
-      return;
+      break;
     }
+
   }
 
   void addCourses()
@@ -446,96 +479,36 @@ public:
     string input;
     getline(cin, input);
     int idx = stoi(input);
+    Student * tempStud = students[idx];
+    Course ** studCourses = tempStud->get_courses();
 
     system("clear");
-    for (int i = 0; i < n;)
+    for (int i = 0; i < getCurrentCourseLenght(); i++){
+      cout << i << ". -----------" << endl;
+      courses[i]->print();
+    }
 
-    Student *stud = students[idx];
-    Course **s_courses = students[idx]->get_courses();
-    int course_size = stud->get_courseSize();
+    cout << "\nChoose a course index to add: ";
+    getline(cin, input);
+    int course_idx = stoi(input);
 
-    for (int i = 0; i < course_size; i++)
-    {
-      if (s_courses[i] != nullptr)
-      {
-        if (s_courses[i]->get_code() != code)
-        {
-          cout << "Code is duplicated.";
-          return;
+    for (int i = 0; i < tempStud->get_courseSize(); i++) {
+      if (studCourses[i] == nullptr) {
+        studCourses[i] = courses[course_idx];
+        system("bash -c 'read -n1 -s -r -p \"Successfully added. Press any key to continue...\"'");
+        break;
+      } 
+
+      if(studCourses[i]->get_code() == courses[course_idx]->get_code()) {
+        if(studCourses[i]->get_grade() >= 60)
+          system("bash -c 'read -n1 -s -r -p \"Course already exists. you may choose different course\npress any key to continue...\"'");
+        else {
+          studCourses[i + 1] = courses[course_idx];
+          system("bash -c 'read -n1 -s -r -p \"Successfully added. Press any key to continue...\"'");
         }
-      }
-
-      s_courses[i] = new Course(title, code, credit, grade);
-      break;
-    }
-  }
-
-  void deleteCourses()
-  {
-    if (students[0] == nullptr)
-    {
-      system("clear");
-      cout << "No data found in students.\n";
-      system("bash -c 'read -n1 -s -r -p \"Press any key to continue...\"'");
-      return;
-    }
-
-    cout << "------------Student List-------------\n";
-    for (int i = 0; i < maxStudentSize; i++)
-    {
-      if (students[i] != nullptr)
-      {
-        cout << i << ". ";
-        cout << students[i]->getID() << " " << students[i]->get_fname() << " " << students[i]->get_lname();
-        cout << endl;
+        return;
       }
     }
-
-    cout << "Choose student to see their courses: ";
-    cin.ignore();
-    string input;
-    getline(cin, input);
-    int idx = stoi(input);
-    Course **s_courses = students[idx]->get_courses();
-
-    if (s_courses[0] == nullptr)
-    {
-      cout << "No course found.\n";
-      system("bash -c 'read -n1 -s -r -p \"Press any key to continue...\"'");
-      return;
-    }
-
-    for (int i = 0; i < students[idx]->get_courseSize(); i++)
-    {
-      cout << "title: ";
-      cout << s_courses[i]->get_title() << endl;
-      cout << "code: ";
-      cout << s_courses[i]->get_code() << endl;
-      cout << "credit: ";
-      cout << s_courses[i]->get_credit() << endl;
-      cout << "grade: ";
-      cout << s_courses[i]->get_grade() << endl;
-    }
-
-    cout << "\n\nEnter course index to delete: ";
-    cin.ignore();
-    getline(cin, input);
-    int c_idx = stoi(input);
-
-    if (c_idx < 0 || students[idx]->get_courseSize() <= c_idx)
-    {
-      cout << "invalid input, try again: " << endl;
-      getline(cin, input);
-      c_idx = stoi(input);
-    }
-
-    int i = 0;
-    for (i = c_idx; i < students[idx]->get_courseSize(); i++)
-    {
-      s_courses[i] = s_courses[i + 1];
-    }
-
-    cout << "successfully deleted.";
   }
 
   void run()
