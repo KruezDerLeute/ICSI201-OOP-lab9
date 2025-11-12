@@ -420,6 +420,7 @@ public:
       return;
     }
 
+    cout << "[" << students[idx]->get_fname() << " " << students[idx]->get_lname() << "]\n";
     for (int i = 0; i < students[idx]->get_courseSize(); i++)
     {
       if (s_courses[i] != nullptr) {
@@ -451,9 +452,9 @@ public:
     default:
       break;
     }
-
   }
-
+  
+// Оюутанд курс нэмэх функц — анхны код бүрэн гүйцэтгэгдэх гэж бодсон ч хэд хэдэн аюултай цэг байна.
   void addCourses()
   {
     if (students[0] == nullptr)
@@ -474,15 +475,20 @@ public:
       }
     }
 
+    /*
+      Оюутнуудын жагсаалтыг гаргасны дараа 
+      аль оюутанд хичээл нэмэх дугаарыг хэрэглэгч оруулна
+    */
     cout << "Choose student to add courses to: ";
-    cin.ignore();
+    cin.ignore(); // нэмэлтээр дарагдсан тэмдэгтийг алгасах(\n гх мэт)
     string input;
     getline(cin, input);
     int idx = stoi(input);
-    Student * tempStud = students[idx];
-    Course ** studCourses = tempStud->get_courses();
+    Student * tempStud = students[idx]; // Сонгогдсон оюутныг илэрхийлэх заагч хувьсагч
+    Course ** studCourses = tempStud->get_courses(); // Энэ нь Student доторх курс массивын pointer-ыг буцаана
 
     system("clear");
+    // Бүх бэлэн курс-уудыг харуулж байна
     for (int i = 0; i < getCurrentCourseLenght(); i++){
       cout << i << ". -----------" << endl;
       courses[i]->print();
@@ -492,17 +498,22 @@ public:
     getline(cin, input);
     int course_idx = stoi(input);
 
+    //Хичээл нэмэх давталт. 
     for (int i = 0; i < tempStud->get_courseSize(); i++) {
       if (studCourses[i] == nullptr) {
+        // Хоосон орон олдсоноор курс-г байршуулна
         studCourses[i] = courses[course_idx];
+        
         system("bash -c 'read -n1 -s -r -p \"Successfully added. Press any key to continue...\"'");
         break;
       } 
 
+      // Хоёрдогч шалгалт: курс нь сурагчаар өмнө нь нэмэгдсэн эсэх, grade >= 60 бол давхиад нэмэхгүй
       if(studCourses[i]->get_code() == courses[course_idx]->get_code()) {
         if(studCourses[i]->get_grade() >= 60)
           system("bash -c 'read -n1 -s -r -p \"Course already exists. you may choose different course\npress any key to continue...\"'");
         else {
+          // Хэрэв давхардсан курс байгаа ч оноо нь бага бол дараагийн слот руу нэмж байна.
           studCourses[i + 1] = courses[course_idx];
           system("bash -c 'read -n1 -s -r -p \"Successfully added. Press any key to continue...\"'");
         }
